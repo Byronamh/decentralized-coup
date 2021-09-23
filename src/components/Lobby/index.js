@@ -1,7 +1,7 @@
 import './index.css'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
-import { validate, signup, login } from '../../lib/user';
+import { validate, signup, login, db, user } from '../../lib/user';
 
 
 export const Lobby = () =>{  
@@ -20,6 +20,14 @@ export const Lobby = () =>{
             }
         }
     }
+ 
+    useEffect(()=>{
+        db.on('auth', async(event) => {
+            const alias = await user.get('alias');
+            console.log(`signed in as ${alias}`);
+            history.push('/connect')
+        });
+    },[history])
 
     return(
         <div className="container">
@@ -34,8 +42,23 @@ export const Lobby = () =>{
                             <label className="form-label">Password</label>
                             <input type="password" className="form-control" id="exampleInputPassword1" ref={passwordRef} />
                         </div>
-                        <button type="button" onClick={()=>sessionHandler(true)} className="btn btn-primary">Log In</button>
-                        <button type="button" onClick={()=>sessionHandler(false)} className="btn btn-primary">Register</button>
+                        <div className="row">
+                            <div className="col text-center">
+                                <button type="button" onClick={()=>sessionHandler(true)} className="btn btn-primary mr-3">Log In</button>
+
+                            </div>
+                            <div className="col text-center">
+                                <button type="button" onClick={()=>sessionHandler(false)} className="btn btn-primary">Register</button>
+                            </div>
+                        </div>
+                        <div className="row pt-2">
+                            <div className="col text-center">
+                                <a className="d-inline-block" href="https://www.ultraboardgames.com/coup/game-rules.php" target="_blank" rel="noreferrer">Read the instructions</a>
+                            </div>
+                            <div className="col text-center">
+                                <a className="d-inline-block" href="https://github.com/Byronamh/decentralized-coup" target="_blank" rel="noreferrer">View the Source Code</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
