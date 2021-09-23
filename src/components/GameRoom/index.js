@@ -25,7 +25,7 @@ export const GameRoom = () =>{
                 <div className="col col-md-8 col-xl-6 card p-2">
                     <h4> Room {roomId}</h4>
                     <hr/>
-                    <GameBoard roomId={roomId} playerName={alias} />
+                    <GameBoard roomId={roomId} />
                 </div>
                 <GameChat  roomId={roomId} playerName={alias}/>
             </div>

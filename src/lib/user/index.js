@@ -32,8 +32,8 @@ export const validate = (username, password) => {
 export const createInitialPlayerPayload = () =>{
     return {
         coins:2,
-        lost: false,
-        challenged: false,
+        alive: true,
+        availableCards:2
     }
 }
 
