@@ -88,7 +88,6 @@ export const onÀctionFinished = (room, actionId, callback) =>{
     user.get('rooms').get(room)
 }
 
-
 export const onLeadChange = (room, callback) => {
     user.get('rooms').get(room).get('leaderName').on(
         (newLeader)=>callback(newLeader)

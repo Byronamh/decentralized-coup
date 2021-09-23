@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Decentralized Coup
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Before you sue me, contact me via [linkedin](https://www.linkedin.com/in/byronamh/) with proof of ownership so I can take the project down.
+
+The game Coup, but with fancy words, such as "open source", "decentralized", "blockchain", "webRTC"
 
 ## Available Scripts
 
