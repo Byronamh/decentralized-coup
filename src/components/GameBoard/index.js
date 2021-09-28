@@ -1,23 +1,15 @@
 
-import { useMachine } from "@xstate/react";
-import { useCallback, useEffect, useState } from "react";
-import { getStateMachine } from "../../lib/stateMachine";
+import { useEffect, useState } from "react";
 import { db, user } from "../../lib/user";
 import { StartGameButton } from "../StartGameButton";
 
-export const GameBoard = ({roomId}) =>{
-
-    const stateMachine = getStateMachine()
-    const [current, send] = useMachine(stateMachine);
+export const GameBoard = ({roomId,playerName}) =>{
     const [roomOwner, setRoomOwner] = useState('')
-    const [alias, setAlias] = useState('')
-    const [players, setPlayers] = useState([])
 
     useEffect(()=>{
         const room = user.get('rooms').get(roomId)
 
-        setAlias(async ()=> await user.get('alias') )
-        setRoomOwner(async ()=> await db.user.get(room).get('alias'))
+        setRoomOwner(async ()=> await db.user(room).get('alias'))
 
         room.get('leaderName').on(newLeader=>{
             //handle new leader
@@ -36,19 +28,17 @@ export const GameBoard = ({roomId}) =>{
     useEffect(()=>{
         const room = user.get('rooms').get(roomId)
 
-        if(roomOwner===alias){
+        if(roomOwner===playerName){
             //user is room owner, can start the game
-
             room.get('startRequests').once(startReq=>{
                 //handle start game requests
             })
-
         }    
 
-    },[alias,roomOwner,roomId])
+    },[playerName,roomOwner,roomId])
 
 
     return (
-            <StartGameButton/>
+            <StartGameButton roomId={roomId}/>
         )
 }

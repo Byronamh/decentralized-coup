@@ -7,7 +7,7 @@ import { validate, signup, login, db, user } from '../../lib/user';
 export const Lobby = () =>{  
     const usernameRef = useRef(null) 
     const passwordRef = useRef(null)
-    const history = useHistory();
+    const history = useHistory()
 
     const sessionHandler = (isLogin=false) =>{
         const username = usernameRef.current.value
@@ -17,14 +17,16 @@ export const Lobby = () =>{
                 login(username,password)
             }else{
                 signup(username, password)
+                alert('Your user has been created, you may now log in')
             }
         }
     }
  
     useEffect(()=>{
         db.on('auth', async(event) => {
-            const alias = await user.get('alias');
-            console.log(`signed in as ${alias}`);
+            const alias = await user.get('alias'); // username string
+        
+            console.log(`logged in as: ${alias}, redirecting...`)
             history.push('/connect')
         });
     },[history])

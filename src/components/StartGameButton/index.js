@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { user } from "../../lib/user"
 
 export const StartGameButton = ({roomId}) =>{
@@ -6,11 +6,11 @@ export const StartGameButton = ({roomId}) =>{
     
     const sendStartRequest = async () => {
         const startCount = await user.get('rooms').get(roomId).get('startRequests')
-        user.get('rooms').get(roomId).get('startRequests').put(+startCount+1,()=>setEnabled(false));
+        user.get('rooms').get(roomId).get('startRequests').put(`${+startCount+1}`,()=>setEnabled(false));
     }
 
     return(
-        <button enabled={enabled}  type="button" onClick={sendStartRequest}>
+        <button enabled={enabled?'enabled':'disabled'} className="btn btn-primary" type="button" onClick={sendStartRequest}>
             Ready to start
         </button>
     )

@@ -8,26 +8,22 @@ import { GameChat } from "../GameChat";
 
 export const GameRoom = () =>{
     const { roomId } = useParams();
-
-    const [alias, setAlias] = useState('')
+    const [username, setUsername] = useState('')
+    
     useEffect(()=>{
-      user.once('auth', async(event) => {
-          setAlias(await user.get('alias'))
-      });
+      user.get('alias').then(data => setUsername(()=>data))
+
     },[])
 
-    useEffect(()=>{
-      console.log('my name is now'+alias)
-    },[alias])
     return (
         <div className="container">
             <div className="row full-height align-items-center justify-content-center">
                 <div className="col col-md-8 col-xl-6 card p-2">
                     <h4> Room {roomId}</h4>
                     <hr/>
-                    <GameBoard roomId={roomId} />
+                    <GameBoard roomId={roomId} playerName={username} />
                 </div>
-                <GameChat  roomId={roomId} playerName={alias}/>
+                <GameChat  roomId={roomId} playerName={username}/>
             </div>
         </div>
     )
